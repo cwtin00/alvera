@@ -1,0 +1,13 @@
+const pages=[['Ana Sayfa','index.html'],['Ürünler','urunler.html'],['Hakkımızda','hakkimizda.html'],['İletişim','iletisim.html']];
+const file=location.pathname.split('/').pop()||'index.html';
+document.getElementById('site-header').innerHTML=`<header class="nav"><a class="brand" href="index.html" aria-label="Alveram Ahşap ana sayfa"><span>ALVERAM</span><small>AHŞAP · GEDİZ</small></a><button class="menu-toggle" aria-label="Menüyü aç" aria-expanded="false"><i></i><i></i></button><nav>${pages.map(([n,u])=>`<a class="${file===u?'active':''}" href="${u}">${n}</a>`).join('')}<a class="nav-cta" href="https://www.instagram.com/alveram.tr/" target="_blank" rel="noopener">Instagram ↗</a></nav></header>`;
+document.getElementById('site-footer').innerHTML=`<footer><div class="brand footer-brand"><span>ALVERAM</span><small>AHŞAP · GEDİZ</small></div><p>Kişiye özel ahşap hediyeler,<br>lazer kesim tasarımlar ve dekoratif mumlar.</p><div><a href="tel:+905304452210">0530 445 22 10</a><a href="https://wa.me/905304452210" target="_blank" rel="noopener">WhatsApp ↗</a><a href="https://www.instagram.com/alveram.tr/" target="_blank" rel="noopener">Instagram ↗</a></div><small>© ${new Date().getFullYear()} Alveram Ahşap</small></footer>`;
+const toggle=document.querySelector('.menu-toggle'),nav=document.querySelector('.nav nav');
+toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')==='true';toggle.setAttribute('aria-expanded',String(!open));nav.classList.toggle('open');document.body.classList.toggle('menu-open');});
+const closeMenu=()=>{toggle.setAttribute('aria-expanded','false');nav.classList.remove('open');document.body.classList.remove('menu-open');};
+nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMenu));
+document.addEventListener('keydown',event=>{if(event.key==='Escape')closeMenu();});
+window.addEventListener('resize',()=>{if(window.innerWidth>900)closeMenu();});
+document.querySelectorAll('.category-nav a').forEach(a=>a.addEventListener('click',()=>document.querySelector(a.hash)?.scrollIntoView({behavior:'smooth'})));
+const locationCard=document.querySelector('.contact-card.location');
+if(locationCard)locationCard.insertAdjacentHTML('beforeend',`<div class="contact-actions"><a href="tel:+905304452210">Ara: 0530 445 22 10</a><a href="https://wa.me/905304452210" target="_blank" rel="noopener">WhatsApp'tan yaz ↗</a></div>`);
